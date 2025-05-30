@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -388,8 +389,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                       <Tooltip />
                       <Bar dataKey="count" fill="#3b82f6" />
                     </BarChart>
-                  </CardContent>
-                </CardHeader>
+                  </ResponsiveContainer>
+                </CardContent>
               </Card>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
