@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -65,13 +66,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
   }
 
   const categoryData = [
-    { name: 'Harassment', value: reports.filter(r => r.category === 'harassment').length, color: '#ef4444' },
-    { name: 'Financial', value: reports.filter(r => r.category === 'financial').length, color: '#f59e0b' },
-    { name: 'Safety', value: reports.filter(r => r.category === 'safety').length, color: '#eab308' },
-    { name: 'Discrimination', value: reports.filter(r => r.category === 'discrimination').length, color: '#8b5cf6' },
-    { name: 'Ethics', value: reports.filter(r => r.category === 'ethics').length, color: '#06b6d4' },
-    { name: 'Privacy', value: reports.filter(r => r.category === 'privacy').length, color: '#10b981' },
-    { name: 'Compliance', value: reports.filter(r => r.category === 'compliance').length, color: '#f97316' }
+    { name: 'Harassment', value: reports.filter(r => r.category === 'harassment').length, color: '#000000' },
+    { name: 'Financial', value: reports.filter(r => r.category === 'financial').length, color: '#404040' },
+    { name: 'Safety', value: reports.filter(r => r.category === 'safety').length, color: '#606060' },
+    { name: 'Discrimination', value: reports.filter(r => r.category === 'discrimination').length, color: '#808080' },
+    { name: 'Ethics', value: reports.filter(r => r.category === 'ethics').length, color: '#a0a0a0' },
+    { name: 'Privacy', value: reports.filter(r => r.category === 'privacy').length, color: '#c0c0c0' },
+    { name: 'Compliance', value: reports.filter(r => r.category === 'compliance').length, color: '#e0e0e0' }
   ];
 
   const monthlyData = [
@@ -92,21 +93,21 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
 
   const urgencyColor = (urgency: string) => {
     switch (urgency) {
-      case 'critical': return 'bg-gradient-to-r from-red-500 to-red-600';
-      case 'high': return 'bg-gradient-to-r from-orange-500 to-orange-600';
-      case 'medium': return 'bg-gradient-to-r from-yellow-500 to-yellow-600';
-      case 'low': return 'bg-gradient-to-r from-green-500 to-green-600';
-      default: return 'bg-gradient-to-r from-gray-500 to-gray-600';
+      case 'critical': return 'bg-black text-white';
+      case 'high': return 'bg-gray-800 text-white';
+      case 'medium': return 'bg-gray-600 text-white';
+      case 'low': return 'bg-gray-400 text-white';
+      default: return 'bg-gray-500 text-white';
     }
   };
 
   const statusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'bg-gradient-to-r from-blue-500 to-blue-600';
-      case 'investigating': return 'bg-gradient-to-r from-orange-500 to-orange-600';
-      case 'resolved': return 'bg-gradient-to-r from-green-500 to-green-600';
-      case 'closed': return 'bg-gradient-to-r from-gray-500 to-gray-600';
-      default: return 'bg-gradient-to-r from-gray-500 to-gray-600';
+      case 'pending': return 'bg-gray-700 text-white';
+      case 'investigating': return 'bg-gray-600 text-white';
+      case 'resolved': return 'bg-black text-white';
+      case 'closed': return 'bg-gray-500 text-white';
+      default: return 'bg-gray-500 text-white';
     }
   };
 
@@ -158,8 +159,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="max-w-7xl max-h-[95vh] overflow-y-auto animate-in fade-in-0 zoom-in-95 duration-500 bg-gradient-to-br from-slate-50 to-blue-50">
-          <DialogHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg p-6 -m-6 mb-6">
+        <DialogContent className="max-w-7xl max-h-[95vh] overflow-y-auto animate-in fade-in-0 zoom-in-95 duration-500 bg-white">
+          <DialogHeader className="bg-black text-white rounded-t-lg p-6 -m-6 mb-6">
             <div className="flex items-center justify-between">
               <DialogTitle className="flex items-center text-xl">
                 <div className="p-2 bg-white/10 rounded-lg mr-3">
@@ -181,24 +182,24 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
           </DialogHeader>
 
           <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 bg-white shadow-lg border-0">
-              <TabsTrigger value="overview" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white transition-all duration-300">Overview</TabsTrigger>
-              <TabsTrigger value="reports" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white transition-all duration-300">Encrypted Reports</TabsTrigger>
-              <TabsTrigger value="analytics" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white transition-all duration-300">Analytics</TabsTrigger>
-              <TabsTrigger value="ai-insights" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white transition-all duration-300">AI Insights</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-4 bg-white shadow-lg border border-gray-200">
+              <TabsTrigger value="overview" className="data-[state=active]:bg-black data-[state=active]:text-white transition-all duration-300">Overview</TabsTrigger>
+              <TabsTrigger value="reports" className="data-[state=active]:bg-black data-[state=active]:text-white transition-all duration-300">Encrypted Reports</TabsTrigger>
+              <TabsTrigger value="analytics" className="data-[state=active]:bg-black data-[state=active]:text-white transition-all duration-300">Analytics</TabsTrigger>
+              <TabsTrigger value="ai-insights" className="data-[state=active]:bg-black data-[state=active]:text-white transition-all duration-300">AI Insights</TabsTrigger>
             </TabsList>
 
             <TabsContent value="overview" className="space-y-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
               {/* Security Notice */}
-              <Card className="bg-gradient-to-r from-blue-50 to-cyan-50 border-blue-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+              <Card className="bg-gray-50 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                 <CardContent className="pt-6">
                   <div className="flex items-start">
-                    <div className="p-2 bg-blue-500 rounded-lg mr-3">
+                    <div className="p-2 bg-black rounded-lg mr-3">
                       <Lock className="h-5 w-5 text-white" />
                     </div>
                     <div className="text-sm">
-                      <p className="font-semibold text-blue-900 mb-2 text-lg">🔒 End-to-End Encryption Active</p>
-                      <p className="text-blue-700">All report data is encrypted using AES-256 encryption. IP addresses are hashed for anonymity.</p>
+                      <p className="font-semibold text-black mb-2 text-lg">🔒 End-to-End Encryption Active</p>
+                      <p className="text-gray-700">All report data is encrypted using AES-256 encryption. IP addresses are hashed for anonymity.</p>
                     </div>
                   </div>
                 </CardContent>
@@ -206,65 +207,65 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
 
               {/* Key Metrics */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <Card className="bg-gradient-to-br from-white to-blue-50 hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group">
+                <Card className="bg-white hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group border-gray-200">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-gray-700">Total Reports</CardTitle>
-                    <div className="p-2 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
-                      <FileText className="h-4 w-4 text-blue-600" />
+                    <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-gray-200 transition-colors">
+                      <FileText className="h-4 w-4 text-black" />
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-blue-600">{reports.length}</div>
-                    <p className="text-xs text-green-600 font-medium">+18% from last month ↗</p>
+                    <div className="text-3xl font-bold text-black">{reports.length}</div>
+                    <p className="text-xs text-gray-600 font-medium">+18% from last month ↗</p>
                   </CardContent>
                 </Card>
                 
-                <Card className="bg-gradient-to-br from-white to-orange-50 hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group">
+                <Card className="bg-white hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group border-gray-200">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-gray-700">Pending Review</CardTitle>
-                    <div className="p-2 bg-orange-100 rounded-lg group-hover:bg-orange-200 transition-colors">
-                      <AlertTriangle className="h-4 w-4 text-orange-600" />
+                    <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-gray-200 transition-colors">
+                      <AlertTriangle className="h-4 w-4 text-black" />
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-orange-600">{reports.filter(r => r.status === 'pending').length}</div>
-                    <p className="text-xs text-orange-600 font-medium">Requires attention ⚠</p>
+                    <div className="text-3xl font-bold text-black">{reports.filter(r => r.status === 'pending').length}</div>
+                    <p className="text-xs text-gray-600 font-medium">Requires attention ⚠</p>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-white to-green-50 hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group">
+                <Card className="bg-white hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group border-gray-200">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-gray-700">Avg Trust Score</CardTitle>
-                    <div className="p-2 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
-                      <Shield className="h-4 w-4 text-green-600" />
+                    <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-gray-200 transition-colors">
+                      <Shield className="h-4 w-4 text-black" />
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-green-600">
+                    <div className="text-3xl font-bold text-black">
                       {Math.round(reports.reduce((acc, r) => acc + r.trustScore, 0) / reports.length)}%
                     </div>
-                    <p className="text-xs text-green-600 font-medium">High confidence ✓</p>
+                    <p className="text-xs text-gray-600 font-medium">High confidence ✓</p>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-white to-red-50 hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group">
+                <Card className="bg-white hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group border-gray-200">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-gray-700">Critical Issues</CardTitle>
-                    <div className="p-2 bg-red-100 rounded-lg group-hover:bg-red-200 transition-colors">
-                      <TrendingUp className="h-4 w-4 text-red-600" />
+                    <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-gray-200 transition-colors">
+                      <TrendingUp className="h-4 w-4 text-black" />
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-red-600">{reports.filter(r => r.urgency === 'critical').length}</div>
-                    <p className="text-xs text-red-600 font-medium">Immediate action needed 🚨</p>
+                    <div className="text-3xl font-bold text-black">{reports.filter(r => r.urgency === 'critical').length}</div>
+                    <p className="text-xs text-gray-600 font-medium">Immediate action needed 🚨</p>
                   </CardContent>
                 </Card>
               </div>
 
               {/* Charts */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <Card className="bg-white shadow-lg hover:shadow-xl transition-all duration-300">
-                  <CardHeader className="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-t-lg">
+                <Card className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 border-gray-200">
+                  <CardHeader className="bg-black text-white rounded-t-lg">
                     <CardTitle className="flex items-center">
                       📊 Reports by Category
                     </CardTitle>
@@ -292,8 +293,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-white shadow-lg hover:shadow-xl transition-all duration-300">
-                  <CardHeader className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-t-lg">
+                <Card className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 border-gray-200">
+                  <CardHeader className="bg-black text-white rounded-t-lg">
                     <CardTitle className="flex items-center">
                       📈 Monthly Report Trends
                     </CardTitle>
@@ -305,8 +306,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                         <XAxis dataKey="month" />
                         <YAxis />
                         <Tooltip />
-                        <Line type="monotone" dataKey="reports" stroke="#3b82f6" strokeWidth={3} />
-                        <Line type="monotone" dataKey="resolved" stroke="#10b981" strokeWidth={3} />
+                        <Line type="monotone" dataKey="reports" stroke="#000000" strokeWidth={3} />
+                        <Line type="monotone" dataKey="resolved" stroke="#666666" strokeWidth={3} />
                       </LineChart>
                     </ResponsiveContainer>
                   </CardContent>
@@ -315,7 +316,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
             </TabsContent>
 
             <TabsContent value="reports" className="space-y-4 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
-              <div className="flex justify-between items-center bg-white p-4 rounded-lg shadow-md">
+              <div className="flex justify-between items-center bg-white p-4 rounded-lg shadow-md border border-gray-200">
                 <div className="flex items-center space-x-2">
                   <Search className="h-4 w-4 text-gray-400" />
                   <Input
@@ -325,7 +326,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                     className="w-64 border-0 bg-gray-50 focus:bg-white transition-colors"
                   />
                 </div>
-                <Button variant="outline" className="bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0 hover:scale-105 transition-transform">
+                <Button variant="outline" className="bg-black text-white border-black hover:bg-gray-800 hover:scale-105 transition-transform">
                   <Filter className="h-4 w-4 mr-2" />
                   Filter
                 </Button>
@@ -335,14 +336,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                 {filteredReports.map((report, index) => {
                   const decrypted = decryptReport(report);
                   return (
-                    <Card key={report.id} className="hover:shadow-xl transition-all duration-300 hover:scale-[1.02] bg-gradient-to-r from-white to-gray-50 animate-in fade-in-0 slide-in-from-left-4" style={{ animationDelay: `${index * 100}ms` }}>
+                    <Card key={report.id} className="hover:shadow-xl transition-all duration-300 hover:scale-[1.02] bg-white animate-in fade-in-0 slide-in-from-left-4 border-gray-200" style={{ animationDelay: `${index * 100}ms` }}>
                       <CardContent className="pt-4">
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
                             <div className="flex items-center space-x-2 mb-2">
                               <h3 className="font-semibold text-gray-800">{decrypted.title}</h3>
-                              <Badge variant="outline" className="bg-blue-50 text-blue-600 border-blue-200">{report.id}</Badge>
-                              <Lock className="h-3 w-3 text-blue-600" />
+                              <Badge variant="outline" className="bg-gray-50 text-gray-600 border-gray-200">{report.id}</Badge>
+                              <Lock className="h-3 w-3 text-gray-600" />
                             </div>
                             <div className="flex items-center space-x-4 text-sm text-gray-600 mb-3">
                               <span className="bg-gray-100 px-2 py-1 rounded">📂 {report.category}</span>
@@ -351,17 +352,17 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                               <span className="bg-gray-100 px-2 py-1 rounded font-mono">🔒 {report.hashedIP.substr(0, 8)}...</span>
                             </div>
                             <div className="flex items-center space-x-2">
-                              <Badge className={`${urgencyColor(report.urgency)} text-white shadow-lg`}>
+                              <Badge className={`${urgencyColor(report.urgency)} shadow-lg`}>
                                 {report.urgency}
                               </Badge>
-                              <Badge className={`${statusColor(report.status)} text-white shadow-lg`}>
+                              <Badge className={`${statusColor(report.status)} shadow-lg`}>
                                 {report.status}
                               </Badge>
                               {report.aiAnalysis.isFakeDetected && (
-                                <Badge variant="destructive" className="animate-pulse">🤖 AI: Suspicious</Badge>
+                                <Badge variant="destructive" className="animate-pulse bg-black text-white">🤖 AI: Suspicious</Badge>
                               )}
                               {report.evidence && (
-                                <Badge variant="secondary" className="bg-purple-100 text-purple-700">📎 {report.evidence.length} Evidence</Badge>
+                                <Badge variant="secondary" className="bg-gray-100 text-gray-700">📎 {report.evidence.length} Evidence</Badge>
                               )}
                             </div>
                           </div>
@@ -370,7 +371,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                               size="sm"
                               variant="outline"
                               onClick={() => setSelectedReport(report)}
-                              className="hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                              className="hover:bg-gray-50 hover:text-black transition-colors border-gray-200"
                             >
                               <Eye className="h-4 w-4" />
                             </Button>
@@ -378,7 +379,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                               size="sm"
                               variant="outline"
                               onClick={() => generatePDFReport(report)}
-                              className="hover:bg-green-50 hover:text-green-600 transition-colors"
+                              className="hover:bg-gray-50 hover:text-black transition-colors border-gray-200"
                             >
                               <Download className="h-4 w-4" />
                             </Button>
@@ -392,8 +393,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
             </TabsContent>
 
             <TabsContent value="analytics" className="space-y-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
-              <Card className="bg-white shadow-xl">
-                <CardHeader className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-t-lg">
+              <Card className="bg-white shadow-xl border-gray-200">
+                <CardHeader className="bg-black text-white rounded-t-lg">
                   <CardTitle>📊 Trust Score Distribution</CardTitle>
                   <CardDescription className="text-white/80">Distribution of report trust scores</CardDescription>
                 </CardHeader>
@@ -404,14 +405,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                       <XAxis dataKey="range" />
                       <YAxis />
                       <Tooltip />
-                      <Bar dataKey="count" fill="#3b82f6" />
+                      <Bar dataKey="count" fill="#000000" />
                     </BarChart>
                   </ResponsiveContainer>
                 </CardContent>
               </Card>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="bg-gradient-to-br from-green-400 to-blue-500 text-white shadow-xl hover:scale-105 transition-transform">
+                <Card className="bg-black text-white shadow-xl hover:scale-105 transition-transform">
                   <CardHeader>
                     <CardTitle className="text-lg flex items-center">✅ Resolution Rate</CardTitle>
                   </CardHeader>
@@ -421,7 +422,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-blue-400 to-purple-500 text-white shadow-xl hover:scale-105 transition-transform">
+                <Card className="bg-gray-700 text-white shadow-xl hover:scale-105 transition-transform">
                   <CardHeader>
                     <CardTitle className="text-lg flex items-center">⏱️ Avg Response Time</CardTitle>
                   </CardHeader>
@@ -431,7 +432,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-orange-400 to-red-500 text-white shadow-xl hover:scale-105 transition-transform">
+                <Card className="bg-gray-500 text-white shadow-xl hover:scale-105 transition-transform">
                   <CardHeader>
                     <CardTitle className="text-lg flex items-center">🚨 Escalation Rate</CardTitle>
                   </CardHeader>
@@ -444,8 +445,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
             </TabsContent>
 
             <TabsContent value="ai-insights" className="space-y-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
-              <Card className="bg-white shadow-xl">
-                <CardHeader className="bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-t-lg">
+              <Card className="bg-white shadow-xl border-gray-200">
+                <CardHeader className="bg-black text-white rounded-t-lg">
                   <CardTitle className="flex items-center">
                     <div className="p-2 bg-white/10 rounded-lg mr-3">
                       <Brain className="h-5 w-5" />
@@ -458,30 +459,30 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                 </CardHeader>
                 <CardContent className="pt-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="text-center p-6 bg-red-50 rounded-lg">
-                      <div className="text-3xl font-bold text-red-600 mb-2">
+                    <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
+                      <div className="text-3xl font-bold text-black mb-2">
                         {reports.filter(r => r.aiAnalysis.isFakeDetected).length}
                       </div>
-                      <p className="text-sm text-red-700 font-medium">🚨 Suspicious Reports Detected</p>
+                      <p className="text-sm text-gray-700 font-medium">🚨 Suspicious Reports Detected</p>
                     </div>
-                    <div className="text-center p-6 bg-green-50 rounded-lg">
-                      <div className="text-3xl font-bold text-green-600 mb-2">
+                    <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
+                      <div className="text-3xl font-bold text-black mb-2">
                         {Math.round((reports.filter(r => !r.aiAnalysis.isFakeDetected).length / reports.length) * 100)}%
                       </div>
-                      <p className="text-sm text-green-700 font-medium">✅ Authentic Reports</p>
+                      <p className="text-sm text-gray-700 font-medium">✅ Authentic Reports</p>
                     </div>
-                    <div className="text-center p-6 bg-blue-50 rounded-lg">
-                      <div className="text-3xl font-bold text-blue-600 mb-2">
+                    <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
+                      <div className="text-3xl font-bold text-black mb-2">
                         {Math.round(reports.reduce((acc, r) => acc + r.aiAnalysis.confidenceScore, 0) / reports.length)}%
                       </div>
-                      <p className="text-sm text-blue-700 font-medium">🎯 AI Confidence Score</p>
+                      <p className="text-sm text-gray-700 font-medium">🎯 AI Confidence Score</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-white shadow-xl">
-                <CardHeader className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-t-lg">
+              <Card className="bg-white shadow-xl border-gray-200">
+                <CardHeader className="bg-black text-white rounded-t-lg">
                   <CardTitle>😊 Sentiment Analysis</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-6">
@@ -491,7 +492,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                       const percentage = Math.round((count / reports.length) * 100);
                       const emoji = sentiment === 'negative' ? '😠' : sentiment === 'concerned' ? '😟' : '😐';
                       return (
-                        <div key={sentiment} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <div key={sentiment} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
                           <span className="capitalize font-medium flex items-center">
                             {emoji} {sentiment}
                           </span>
@@ -499,8 +500,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                             <div className="w-32 bg-gray-200 rounded-full h-3 overflow-hidden">
                               <div
                                 className={`h-3 rounded-full transition-all duration-1000 ${
-                                  sentiment === 'negative' ? 'bg-gradient-to-r from-red-400 to-red-600' :
-                                  sentiment === 'concerned' ? 'bg-gradient-to-r from-yellow-400 to-yellow-600' : 'bg-gradient-to-r from-orange-400 to-orange-600'
+                                  sentiment === 'negative' ? 'bg-black' :
+                                  sentiment === 'concerned' ? 'bg-gray-600' : 'bg-gray-400'
                                 }`}
                                 style={{ width: `${percentage}%` }}
                               ></div>
@@ -521,8 +522,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
       {/* Report Detail Modal */}
       {selectedReport && (
         <Dialog open={!!selectedReport} onOpenChange={() => setSelectedReport(null)}>
-          <DialogContent className="max-w-3xl animate-in fade-in-0 zoom-in-95 duration-300">
-            <DialogHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg p-6 -m-6 mb-6">
+          <DialogContent className="max-w-3xl animate-in fade-in-0 zoom-in-95 duration-300 bg-white">
+            <DialogHeader className="bg-black text-white rounded-t-lg p-6 -m-6 mb-6">
               <DialogTitle className="flex items-center">
                 🔍 Encrypted Report Details - {selectedReport.id}
               </DialogTitle>
@@ -531,18 +532,18 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
               <div>
                 <h3 className="font-semibold text-lg text-gray-800">{decryptReport(selectedReport).title}</h3>
                 <div className="flex items-center space-x-2 mt-2">
-                  <Badge className={`${urgencyColor(selectedReport.urgency)} text-white shadow-lg`}>
+                  <Badge className={`${urgencyColor(selectedReport.urgency)} shadow-lg`}>
                     {selectedReport.urgency}
                   </Badge>
-                  <Badge className={`${statusColor(selectedReport.status)} text-white shadow-lg`}>
+                  <Badge className={`${statusColor(selectedReport.status)} shadow-lg`}>
                     {selectedReport.status}
                   </Badge>
-                  <Badge variant="outline" className="bg-blue-50 text-blue-600">Trust Score: {selectedReport.trustScore}%</Badge>
-                  <Lock className="h-4 w-4 text-blue-600" />
+                  <Badge variant="outline" className="bg-gray-50 text-gray-600 border-gray-200">Trust Score: {selectedReport.trustScore}%</Badge>
+                  <Lock className="h-4 w-4 text-gray-600" />
                 </div>
               </div>
               
-              <Card className="bg-gradient-to-r from-gray-50 to-blue-50">
+              <Card className="bg-gray-50 border-gray-200">
                 <CardHeader>
                   <CardTitle className="text-base flex items-center">
                     📄 Report Content (Decrypted)
@@ -555,7 +556,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-r from-purple-50 to-pink-50">
+              <Card className="bg-gray-50 border-gray-200">
                 <CardHeader>
                   <CardTitle className="text-base flex items-center">
                     <Brain className="h-4 w-4 mr-2" />
@@ -564,51 +565,51 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div className="p-3 bg-white rounded-lg">
+                    <div className="p-3 bg-white rounded-lg border border-gray-200">
                       <span className="font-medium">Sentiment:</span>
                       <div className="mt-1">
-                        <Badge variant="secondary" className="capitalize">{selectedReport.aiAnalysis.sentiment}</Badge>
+                        <Badge variant="secondary" className="capitalize bg-gray-100 text-gray-700">{selectedReport.aiAnalysis.sentiment}</Badge>
                       </div>
                     </div>
-                    <div className="p-3 bg-white rounded-lg">
+                    <div className="p-3 bg-white rounded-lg border border-gray-200">
                       <span className="font-medium">Authenticity:</span>
                       <div className="mt-1">
                         <Badge 
                           variant={selectedReport.aiAnalysis.isFakeDetected ? "destructive" : "default"}
-                          className={!selectedReport.aiAnalysis.isFakeDetected ? "bg-green-600" : ""}
+                          className={!selectedReport.aiAnalysis.isFakeDetected ? "bg-black text-white" : "bg-black text-white"}
                         >
                           {selectedReport.aiAnalysis.isFakeDetected ? '🚨 Suspicious' : '✅ Authentic'}
                         </Badge>
                       </div>
                     </div>
-                    <div className="p-3 bg-white rounded-lg">
+                    <div className="p-3 bg-white rounded-lg border border-gray-200">
                       <span className="font-medium">Confidence Score:</span>
                       <div className="mt-1">
-                        <Badge variant="outline">{selectedReport.aiAnalysis.confidenceScore}%</Badge>
+                        <Badge variant="outline" className="border-gray-300 text-gray-700">{selectedReport.aiAnalysis.confidenceScore}%</Badge>
                       </div>
                     </div>
-                    <div className="p-3 bg-white rounded-lg">
+                    <div className="p-3 bg-white rounded-lg border border-gray-200">
                       <span className="font-medium">Encryption Key:</span>
                       <div className="mt-1">
-                        <Badge variant="outline" className="font-mono text-xs">{selectedReport.encryptionKey}</Badge>
+                        <Badge variant="outline" className="font-mono text-xs border-gray-300 text-gray-700">{selectedReport.encryptionKey}</Badge>
                       </div>
                     </div>
-                    <div className="col-span-2 p-3 bg-white rounded-lg">
+                    <div className="col-span-2 p-3 bg-white rounded-lg border border-gray-200">
                       <span className="font-medium">Keywords:</span>
                       <div className="mt-1">
                         {selectedReport.aiAnalysis.keywords.map((keyword: string, i: number) => (
-                          <Badge key={i} variant="secondary" className="mr-1 mb-1">
+                          <Badge key={i} variant="secondary" className="mr-1 mb-1 bg-gray-100 text-gray-700">
                             {keyword}
                           </Badge>
                         ))}
                       </div>
                     </div>
                     {selectedReport.evidence && (
-                      <div className="col-span-2 p-3 bg-white rounded-lg">
+                      <div className="col-span-2 p-3 bg-white rounded-lg border border-gray-200">
                         <span className="font-medium">Evidence:</span>
                         <div className="mt-1">
                           {selectedReport.evidence.map((evidence, i) => (
-                            <Badge key={i} variant="outline" className="mr-1 mb-1">
+                            <Badge key={i} variant="outline" className="mr-1 mb-1 border-gray-300 text-gray-700">
                               📎 {evidence.type} ({evidence.size}) - Encrypted
                             </Badge>
                           ))}
@@ -623,12 +624,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                 <Button
                   variant="outline"
                   onClick={() => generatePDFReport(selectedReport)}
-                  className="hover:bg-green-50 hover:text-green-600 transition-colors"
+                  className="hover:bg-gray-50 hover:text-black transition-colors border-gray-200"
                 >
                   <Download className="h-4 w-4 mr-2" />
                   Export PDF
                 </Button>
-                <Button onClick={() => setSelectedReport(null)} className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600">
+                <Button onClick={() => setSelectedReport(null)} className="bg-black hover:bg-gray-800 text-white">
                   Close
                 </Button>
               </div>
