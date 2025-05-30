@@ -5,7 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Shield, Send, AlertCircle, CheckCircle, Lock, Brain, RefreshCw } from 'lucide-react';
+import { Shield, Send, AlertCircle, CheckCircle, Lock, Brain, RefreshCw, Key } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -34,6 +34,8 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
   const [reportId, setReportId] = useState('');
   const [aiAnalysis, setAiAnalysis] = useState<any>(null);
   const [isRephrasing, setIsRephrasing] = useState(false);
+  const [apiKey, setApiKey] = useState('');
+  const [showApiKeyInput, setShowApiKeyInput] = useState(false);
   const { toast } = useToast();
 
   const languages = {
@@ -49,6 +51,8 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
       submitting: 'Encrypting & Submitting...',
       success: 'Report Submitted Successfully',
       trackingId: 'Tracking ID',
+      apiKeyLabel: 'OpenAI API Key (for AI rephrasing)',
+      apiKeyPlaceholder: 'Enter your OpenAI API key...',
       categories: {
         harassment: 'Harassment',
         discrimination: 'Discrimination',
@@ -76,6 +80,8 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
       submitting: 'Cifrando y Enviando...',
       success: 'Reporte Enviado Exitosamente',
       trackingId: 'ID de Seguimiento',
+      apiKeyLabel: 'Clave API de OpenAI (para reformulación con IA)',
+      apiKeyPlaceholder: 'Ingresa tu clave API de OpenAI...',
       categories: {
         harassment: 'Acoso',
         discrimination: 'Discriminación',
@@ -103,6 +109,8 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
       submitting: 'Chiffrement et Envoi...',
       success: 'Rapport Soumis avec Succès',
       trackingId: 'ID de Suivi',
+      apiKeyLabel: 'Clé API OpenAI (pour la reformulation IA)',
+      apiKeyPlaceholder: 'Entrez votre clé API OpenAI...',
       categories: {
         harassment: 'Harcèlement',
         discrimination: 'Discrimination',
@@ -120,7 +128,6 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
     }
   };
 
-  // Add fallback to prevent undefined error
   const t = languages[language as keyof typeof languages] || languages.en;
 
   const generateReportId = () => {
@@ -130,8 +137,8 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
   const simulateAIAnalysis = (reportData: any) => {
     const categories = Object.keys(t.categories);
     const detectedCategory = categories[Math.floor(Math.random() * categories.length)];
-    const trustScore = Math.floor(Math.random() * 30) + 70; // 70-100
-    const isFakeDetected = Math.random() < 0.1; // 10% chance of fake detection
+    const trustScore = Math.floor(Math.random() * 30) + 70;
+    const isFakeDetected = Math.random() < 0.1;
     
     return {
       detectedCategory,
@@ -143,45 +150,83 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
     };
   };
 
-  const rephraseText = async (text: string, field: string) => {
+  const rephraseWithLLM = async (text: string, field: string) => {
+    if (!apiKey) {
+      setShowApiKeyInput(true);
+      toast({
+        title: "API Key Required",
+        description: "Please enter your OpenAI API key to use AI rephrasing.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsRephrasing(true);
     
-    // Simulate AI rephrasing delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    // Simple rephrasing logic - in a real app, this would call an AI service
-    const rephrasedTexts = {
-      title: [
-        "Concern regarding workplace misconduct",
-        "Report of policy violation incident",
-        "Workplace safety and compliance issue",
-        "Organizational misconduct observation"
-      ],
-      description: [
-        `This report details a concerning incident that requires immediate attention. The situation involves ${text.toLowerCase()} and may impact workplace safety and compliance standards.`,
-        `I am reporting an incident of significant concern that occurred recently. The details are as follows: ${text.toLowerCase()}. This matter requires proper investigation and resolution.`,
-        `An important workplace issue has come to my attention that needs to be addressed. The incident involves ${text.toLowerCase()} and may have broader implications for our organization.`
-      ],
-      evidence: [
-        `Supporting documentation and evidence related to this incident include: ${text.toLowerCase()}. These materials substantiate the claims made in this report.`,
-        `The following evidence supports the reported incident: ${text.toLowerCase()}. Additional documentation may be available upon request.`
-      ]
+    try {
+      const systemPrompt = getSystemPrompt(field);
+      
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [
+            {
+              role: 'system',
+              content: systemPrompt
+            },
+            {
+              role: 'user',
+              content: text
+            }
+          ],
+          temperature: 0.7,
+          max_tokens: 500
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
+      const data = await response.json();
+      const rephrasedText = data.choices[0]?.message?.content?.trim();
+
+      if (rephrasedText) {
+        setReport(prev => ({
+          ...prev,
+          [field]: rephrasedText
+        }));
+        
+        toast({
+          title: "Text Rephrased",
+          description: "The text has been professionally rephrased using AI.",
+        });
+      }
+    } catch (error) {
+      console.error('Error rephrasing text:', error);
+      toast({
+        title: "Rephrasing Failed",
+        description: "Failed to rephrase text. Please check your API key and try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsRephrasing(false);
+    }
+  };
+
+  const getSystemPrompt = (field: string) => {
+    const prompts = {
+      title: "Rephrase this text to be a professional, clear, and concise report title for a workplace incident. Keep it under 100 characters and maintain the core meaning while making it more formal and appropriate for official documentation.",
+      description: "Rephrase this incident description to be professional, detailed, and objective. Use formal language appropriate for workplace reporting while maintaining all important details. The tone should be factual and neutral.",
+      evidence: "Rephrase this evidence description to be clear, professional, and well-structured. Use formal language appropriate for official documentation while ensuring all important details are preserved."
     };
     
-    const options = rephrasedTexts[field as keyof typeof rephrasedTexts] || [text];
-    const rephrasedText = options[Math.floor(Math.random() * options.length)];
-    
-    setReport(prev => ({
-      ...prev,
-      [field]: rephrasedText
-    }));
-    
-    setIsRephrasing(false);
-    
-    toast({
-      title: "Text Rephrased",
-      description: "The text has been professionally rephrased.",
-    });
+    return prompts[field as keyof typeof prompts] || "Rephrase this text to be more professional and clear while maintaining the original meaning.";
   };
 
   const handleSubmit = async () => {
@@ -196,11 +241,9 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
 
     setIsSubmitting(true);
 
-    // Simulate AI analysis
     const analysis = simulateAIAnalysis(report);
     setAiAnalysis(analysis);
 
-    // Simulate encryption and submission delay
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     const newReportId = generateReportId();
@@ -226,6 +269,7 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
     setSubmitted(false);
     setReportId('');
     setAiAnalysis(null);
+    setShowApiKeyInput(false);
     onClose();
   };
 
@@ -340,6 +384,31 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
             </CardContent>
           </Card>
 
+          {/* API Key Input */}
+          {showApiKeyInput && (
+            <Card className="bg-blue-50 border-blue-200">
+              <CardContent className="pt-4">
+                <div className="flex items-start">
+                  <Key className="h-5 w-5 text-blue-600 mr-2 mt-0.5" />
+                  <div className="flex-1">
+                    <Label htmlFor="apiKey" className="text-blue-900 font-medium">{t.apiKeyLabel}</Label>
+                    <Input
+                      id="apiKey"
+                      type="password"
+                      value={apiKey}
+                      onChange={(e) => setApiKey(e.target.value)}
+                      placeholder={t.apiKeyPlaceholder}
+                      className="mt-1 border-blue-300 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                    <p className="text-xs text-blue-700 mt-1">
+                      Your API key is stored locally and only used for rephrasing. Get one at openai.com
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           <div className="space-y-4">
             <div>
               <div className="flex justify-between items-center mb-1">
@@ -348,7 +417,7 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() => rephraseText(report.title, 'title')}
+                  onClick={() => rephraseWithLLM(report.title, 'title')}
                   disabled={!report.title || isRephrasing}
                   className="text-gray-900 hover:bg-gray-100"
                 >
@@ -406,7 +475,7 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() => rephraseText(report.description, 'description')}
+                  onClick={() => rephraseWithLLM(report.description, 'description')}
                   disabled={!report.description || isRephrasing}
                   className="text-gray-900 hover:bg-gray-100"
                 >
@@ -430,7 +499,7 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() => rephraseText(report.evidence, 'evidence')}
+                  onClick={() => rephraseWithLLM(report.evidence, 'evidence')}
                   disabled={!report.evidence || isRephrasing}
                   className="text-gray-900 hover:bg-gray-100"
                 >
