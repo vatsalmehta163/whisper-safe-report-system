@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Shield, Lock, Globe, BarChart3, FileText, Brain, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
