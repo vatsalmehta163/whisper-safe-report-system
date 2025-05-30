@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -66,13 +65,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
   }
 
   const categoryData = [
-    { name: 'Harassment', value: reports.filter(r => r.category === 'harassment').length, color: '#000000' },
-    { name: 'Financial', value: reports.filter(r => r.category === 'financial').length, color: '#404040' },
-    { name: 'Safety', value: reports.filter(r => r.category === 'safety').length, color: '#606060' },
-    { name: 'Discrimination', value: reports.filter(r => r.category === 'discrimination').length, color: '#808080' },
-    { name: 'Ethics', value: reports.filter(r => r.category === 'ethics').length, color: '#a0a0a0' },
-    { name: 'Privacy', value: reports.filter(r => r.category === 'privacy').length, color: '#c0c0c0' },
-    { name: 'Compliance', value: reports.filter(r => r.category === 'compliance').length, color: '#e0e0e0' }
+    { name: 'Harassment', value: reports.filter(r => r.category === 'harassment').length, color: '#6b7280' },
+    { name: 'Financial', value: reports.filter(r => r.category === 'financial').length, color: '#4b5563' },
+    { name: 'Safety', value: reports.filter(r => r.category === 'safety').length, color: '#374151' },
+    { name: 'Discrimination', value: reports.filter(r => r.category === 'discrimination').length, color: '#1f2937' },
+    { name: 'Ethics', value: reports.filter(r => r.category === 'ethics').length, color: '#111827' },
+    { name: 'Privacy', value: reports.filter(r => r.category === 'privacy').length, color: '#9ca3af' },
+    { name: 'Compliance', value: reports.filter(r => r.category === 'compliance').length, color: '#d1d5db' }
   ];
 
   const monthlyData = [
@@ -93,20 +92,20 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
 
   const urgencyColor = (urgency: string) => {
     switch (urgency) {
-      case 'critical': return 'bg-black text-white';
-      case 'high': return 'bg-gray-800 text-white';
-      case 'medium': return 'bg-gray-600 text-white';
-      case 'low': return 'bg-gray-400 text-white';
+      case 'critical': return 'bg-red-600 text-white';
+      case 'high': return 'bg-orange-500 text-white';
+      case 'medium': return 'bg-yellow-500 text-white';
+      case 'low': return 'bg-green-500 text-white';
       default: return 'bg-gray-500 text-white';
     }
   };
 
   const statusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'bg-gray-700 text-white';
-      case 'investigating': return 'bg-gray-600 text-white';
-      case 'resolved': return 'bg-black text-white';
-      case 'closed': return 'bg-gray-500 text-white';
+      case 'pending': return 'bg-gray-600 text-white';
+      case 'investigating': return 'bg-blue-600 text-white';
+      case 'resolved': return 'bg-green-600 text-white';
+      case 'closed': return 'bg-gray-400 text-white';
       default: return 'bg-gray-500 text-white';
     }
   };
@@ -160,7 +159,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className="max-w-7xl max-h-[95vh] overflow-y-auto animate-in fade-in-0 zoom-in-95 duration-500 bg-white">
-          <DialogHeader className="bg-black text-white rounded-t-lg p-6 -m-6 mb-6">
+          <DialogHeader className="bg-gray-900 text-white rounded-t-lg p-6 -m-6 mb-6">
             <div className="flex items-center justify-between">
               <DialogTitle className="flex items-center text-xl">
                 <div className="p-2 bg-white/10 rounded-lg mr-3">
@@ -183,10 +182,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
 
           <Tabs defaultValue="overview" className="w-full">
             <TabsList className="grid w-full grid-cols-4 bg-white shadow-lg border border-gray-200">
-              <TabsTrigger value="overview" className="data-[state=active]:bg-black data-[state=active]:text-white transition-all duration-300">Overview</TabsTrigger>
-              <TabsTrigger value="reports" className="data-[state=active]:bg-black data-[state=active]:text-white transition-all duration-300">Encrypted Reports</TabsTrigger>
-              <TabsTrigger value="analytics" className="data-[state=active]:bg-black data-[state=active]:text-white transition-all duration-300">Analytics</TabsTrigger>
-              <TabsTrigger value="ai-insights" className="data-[state=active]:bg-black data-[state=active]:text-white transition-all duration-300">AI Insights</TabsTrigger>
+              <TabsTrigger value="overview" className="data-[state=active]:bg-gray-900 data-[state=active]:text-white transition-all duration-300">Overview</TabsTrigger>
+              <TabsTrigger value="reports" className="data-[state=active]:bg-gray-900 data-[state=active]:text-white transition-all duration-300">Encrypted Reports</TabsTrigger>
+              <TabsTrigger value="analytics" className="data-[state=active]:bg-gray-900 data-[state=active]:text-white transition-all duration-300">Analytics</TabsTrigger>
+              <TabsTrigger value="ai-insights" className="data-[state=active]:bg-gray-900 data-[state=active]:text-white transition-all duration-300">AI Insights</TabsTrigger>
             </TabsList>
 
             <TabsContent value="overview" className="space-y-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
@@ -194,11 +193,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
               <Card className="bg-gray-50 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                 <CardContent className="pt-6">
                   <div className="flex items-start">
-                    <div className="p-2 bg-black rounded-lg mr-3">
+                    <div className="p-2 bg-gray-900 rounded-lg mr-3">
                       <Lock className="h-5 w-5 text-white" />
                     </div>
                     <div className="text-sm">
-                      <p className="font-semibold text-black mb-2 text-lg">🔒 End-to-End Encryption Active</p>
+                      <p className="font-semibold text-gray-900 mb-2 text-lg">🔒 End-to-End Encryption Active</p>
                       <p className="text-gray-700">All report data is encrypted using AES-256 encryption. IP addresses are hashed for anonymity.</p>
                     </div>
                   </div>
@@ -211,11 +210,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-gray-700">Total Reports</CardTitle>
                     <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-gray-200 transition-colors">
-                      <FileText className="h-4 w-4 text-black" />
+                      <FileText className="h-4 w-4 text-gray-900" />
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-black">{reports.length}</div>
+                    <div className="text-3xl font-bold text-gray-900">{reports.length}</div>
                     <p className="text-xs text-gray-600 font-medium">+18% from last month ↗</p>
                   </CardContent>
                 </Card>
@@ -224,11 +223,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-gray-700">Pending Review</CardTitle>
                     <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-gray-200 transition-colors">
-                      <AlertTriangle className="h-4 w-4 text-black" />
+                      <AlertTriangle className="h-4 w-4 text-gray-900" />
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-black">{reports.filter(r => r.status === 'pending').length}</div>
+                    <div className="text-3xl font-bold text-gray-900">{reports.filter(r => r.status === 'pending').length}</div>
                     <p className="text-xs text-gray-600 font-medium">Requires attention ⚠</p>
                   </CardContent>
                 </Card>
@@ -237,11 +236,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-gray-700">Avg Trust Score</CardTitle>
                     <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-gray-200 transition-colors">
-                      <Shield className="h-4 w-4 text-black" />
+                      <Shield className="h-4 w-4 text-gray-900" />
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-black">
+                    <div className="text-3xl font-bold text-gray-900">
                       {Math.round(reports.reduce((acc, r) => acc + r.trustScore, 0) / reports.length)}%
                     </div>
                     <p className="text-xs text-gray-600 font-medium">High confidence ✓</p>
@@ -252,11 +251,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-gray-700">Critical Issues</CardTitle>
                     <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-gray-200 transition-colors">
-                      <TrendingUp className="h-4 w-4 text-black" />
+                      <TrendingUp className="h-4 w-4 text-gray-900" />
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-black">{reports.filter(r => r.urgency === 'critical').length}</div>
+                    <div className="text-3xl font-bold text-gray-900">{reports.filter(r => r.urgency === 'critical').length}</div>
                     <p className="text-xs text-gray-600 font-medium">Immediate action needed 🚨</p>
                   </CardContent>
                 </Card>
@@ -265,7 +264,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
               {/* Charts */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 border-gray-200">
-                  <CardHeader className="bg-black text-white rounded-t-lg">
+                  <CardHeader className="bg-gray-900 text-white rounded-t-lg">
                     <CardTitle className="flex items-center">
                       📊 Reports by Category
                     </CardTitle>
@@ -294,7 +293,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                 </Card>
 
                 <Card className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 border-gray-200">
-                  <CardHeader className="bg-black text-white rounded-t-lg">
+                  <CardHeader className="bg-gray-900 text-white rounded-t-lg">
                     <CardTitle className="flex items-center">
                       📈 Monthly Report Trends
                     </CardTitle>
@@ -306,8 +305,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                         <XAxis dataKey="month" />
                         <YAxis />
                         <Tooltip />
-                        <Line type="monotone" dataKey="reports" stroke="#000000" strokeWidth={3} />
-                        <Line type="monotone" dataKey="resolved" stroke="#666666" strokeWidth={3} />
+                        <Line type="monotone" dataKey="reports" stroke="#111827" strokeWidth={3} />
+                        <Line type="monotone" dataKey="resolved" stroke="#6b7280" strokeWidth={3} />
                       </LineChart>
                     </ResponsiveContainer>
                   </CardContent>
@@ -326,7 +325,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                     className="w-64 border-0 bg-gray-50 focus:bg-white transition-colors"
                   />
                 </div>
-                <Button variant="outline" className="bg-black text-white border-black hover:bg-gray-800 hover:scale-105 transition-transform">
+                <Button variant="outline" className="bg-gray-900 text-white border-gray-900 hover:bg-gray-800 hover:scale-105 transition-transform">
                   <Filter className="h-4 w-4 mr-2" />
                   Filter
                 </Button>
@@ -359,7 +358,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                                 {report.status}
                               </Badge>
                               {report.aiAnalysis.isFakeDetected && (
-                                <Badge variant="destructive" className="animate-pulse bg-black text-white">🤖 AI: Suspicious</Badge>
+                                <Badge variant="destructive" className="animate-pulse bg-red-600 text-white">🤖 AI: Suspicious</Badge>
                               )}
                               {report.evidence && (
                                 <Badge variant="secondary" className="bg-gray-100 text-gray-700">📎 {report.evidence.length} Evidence</Badge>
@@ -371,7 +370,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                               size="sm"
                               variant="outline"
                               onClick={() => setSelectedReport(report)}
-                              className="hover:bg-gray-50 hover:text-black transition-colors border-gray-200"
+                              className="hover:bg-gray-50 hover:text-gray-900 transition-colors border-gray-200"
                             >
                               <Eye className="h-4 w-4" />
                             </Button>
@@ -379,7 +378,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                               size="sm"
                               variant="outline"
                               onClick={() => generatePDFReport(report)}
-                              className="hover:bg-gray-50 hover:text-black transition-colors border-gray-200"
+                              className="hover:bg-gray-50 hover:text-gray-900 transition-colors border-gray-200"
                             >
                               <Download className="h-4 w-4" />
                             </Button>
@@ -394,7 +393,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
 
             <TabsContent value="analytics" className="space-y-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
               <Card className="bg-white shadow-xl border-gray-200">
-                <CardHeader className="bg-black text-white rounded-t-lg">
+                <CardHeader className="bg-gray-900 text-white rounded-t-lg">
                   <CardTitle>📊 Trust Score Distribution</CardTitle>
                   <CardDescription className="text-white/80">Distribution of report trust scores</CardDescription>
                 </CardHeader>
@@ -405,14 +404,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                       <XAxis dataKey="range" />
                       <YAxis />
                       <Tooltip />
-                      <Bar dataKey="count" fill="#000000" />
+                      <Bar dataKey="count" fill="#111827" />
                     </BarChart>
                   </ResponsiveContainer>
                 </CardContent>
               </Card>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="bg-black text-white shadow-xl hover:scale-105 transition-transform">
+                <Card className="bg-gray-900 text-white shadow-xl hover:scale-105 transition-transform">
                   <CardHeader>
                     <CardTitle className="text-lg flex items-center">✅ Resolution Rate</CardTitle>
                   </CardHeader>
@@ -446,7 +445,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
 
             <TabsContent value="ai-insights" className="space-y-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
               <Card className="bg-white shadow-xl border-gray-200">
-                <CardHeader className="bg-black text-white rounded-t-lg">
+                <CardHeader className="bg-gray-900 text-white rounded-t-lg">
                   <CardTitle className="flex items-center">
                     <div className="p-2 bg-white/10 rounded-lg mr-3">
                       <Brain className="h-5 w-5" />
@@ -460,19 +459,19 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                 <CardContent className="pt-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
-                      <div className="text-3xl font-bold text-black mb-2">
+                      <div className="text-3xl font-bold text-gray-900 mb-2">
                         {reports.filter(r => r.aiAnalysis.isFakeDetected).length}
                       </div>
                       <p className="text-sm text-gray-700 font-medium">🚨 Suspicious Reports Detected</p>
                     </div>
                     <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
-                      <div className="text-3xl font-bold text-black mb-2">
+                      <div className="text-3xl font-bold text-gray-900 mb-2">
                         {Math.round((reports.filter(r => !r.aiAnalysis.isFakeDetected).length / reports.length) * 100)}%
                       </div>
                       <p className="text-sm text-gray-700 font-medium">✅ Authentic Reports</p>
                     </div>
                     <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
-                      <div className="text-3xl font-bold text-black mb-2">
+                      <div className="text-3xl font-bold text-gray-900 mb-2">
                         {Math.round(reports.reduce((acc, r) => acc + r.aiAnalysis.confidenceScore, 0) / reports.length)}%
                       </div>
                       <p className="text-sm text-gray-700 font-medium">🎯 AI Confidence Score</p>
@@ -482,7 +481,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
               </Card>
 
               <Card className="bg-white shadow-xl border-gray-200">
-                <CardHeader className="bg-black text-white rounded-t-lg">
+                <CardHeader className="bg-gray-900 text-white rounded-t-lg">
                   <CardTitle>😊 Sentiment Analysis</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-6">
@@ -500,7 +499,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                             <div className="w-32 bg-gray-200 rounded-full h-3 overflow-hidden">
                               <div
                                 className={`h-3 rounded-full transition-all duration-1000 ${
-                                  sentiment === 'negative' ? 'bg-black' :
+                                  sentiment === 'negative' ? 'bg-gray-900' :
                                   sentiment === 'concerned' ? 'bg-gray-600' : 'bg-gray-400'
                                 }`}
                                 style={{ width: `${percentage}%` }}
@@ -523,7 +522,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
       {selectedReport && (
         <Dialog open={!!selectedReport} onOpenChange={() => setSelectedReport(null)}>
           <DialogContent className="max-w-3xl animate-in fade-in-0 zoom-in-95 duration-300 bg-white">
-            <DialogHeader className="bg-black text-white rounded-t-lg p-6 -m-6 mb-6">
+            <DialogHeader className="bg-gray-900 text-white rounded-t-lg p-6 -m-6 mb-6">
               <DialogTitle className="flex items-center">
                 🔍 Encrypted Report Details - {selectedReport.id}
               </DialogTitle>
@@ -576,7 +575,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                       <div className="mt-1">
                         <Badge 
                           variant={selectedReport.aiAnalysis.isFakeDetected ? "destructive" : "default"}
-                          className={!selectedReport.aiAnalysis.isFakeDetected ? "bg-black text-white" : "bg-black text-white"}
+                          className={!selectedReport.aiAnalysis.isFakeDetected ? "bg-gray-900 text-white" : "bg-red-600 text-white"}
                         >
                           {selectedReport.aiAnalysis.isFakeDetected ? '🚨 Suspicious' : '✅ Authentic'}
                         </Badge>
@@ -624,12 +623,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
                 <Button
                   variant="outline"
                   onClick={() => generatePDFReport(selectedReport)}
-                  className="hover:bg-gray-50 hover:text-black transition-colors border-gray-200"
+                  className="hover:bg-gray-50 hover:text-gray-900 transition-colors border-gray-200"
                 >
                   <Download className="h-4 w-4 mr-2" />
                   Export PDF
                 </Button>
-                <Button onClick={() => setSelectedReport(null)} className="bg-black hover:bg-gray-800 text-white">
+                <Button onClick={() => setSelectedReport(null)} className="bg-gray-900 hover:bg-gray-800 text-white">
                   Close
                 </Button>
               </div>

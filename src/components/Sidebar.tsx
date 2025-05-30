@@ -38,11 +38,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, onLog
       {/* Logo Section */}
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center space-x-3">
-          <div className="p-2 bg-black rounded-xl shadow-lg">
+          <div className="p-2 bg-gray-900 rounded-xl shadow-lg">
             <Shield className="h-6 w-6 text-white" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-black">WhistlePro</h1>
+            <h1 className="text-xl font-bold text-gray-900">WhistlePro</h1>
             <p className="text-xs text-gray-500">Secure Reporting</p>
           </div>
         </div>
@@ -59,8 +59,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, onLog
                   onClick={() => onSectionChange(item.id)}
                   className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
                     activeSection === item.id
-                      ? 'bg-black text-white'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-black'
+                      ? 'bg-gray-900 text-white'
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   }`}
                 >
                   <Icon className="h-5 w-5" />
@@ -78,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, onLog
           <Button
             variant="ghost"
             onClick={onLogout}
-            className="w-full justify-start text-gray-600 hover:text-black hover:bg-gray-100"
+            className="w-full justify-start text-gray-600 hover:text-gray-900 hover:bg-gray-100"
           >
             <LogOut className="h-5 w-5 mr-3" />
             Log out

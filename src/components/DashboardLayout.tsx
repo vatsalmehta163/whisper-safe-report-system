@@ -36,7 +36,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         <header className="bg-white border-b border-gray-200 px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-semibold text-black capitalize">{activeSection}</h1>
+              <h1 className="text-2xl font-semibold text-gray-900 capitalize">{activeSection}</h1>
               <p className="text-gray-600">
                 {isAuthenticated ? `Hello ${adminUser?.name},` : 'Hello,'} Here's what's going on today.
               </p>
@@ -48,14 +48,14 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 <Search className="h-4 w-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <Input
                   placeholder="Search..."
-                  className="pl-10 w-64 bg-gray-50 border-gray-200 focus:ring-black focus:border-black"
+                  className="pl-10 w-64 bg-gray-50 border-gray-200 focus:ring-gray-900 focus:border-gray-900"
                 />
               </div>
               
               {/* Notifications */}
               <Button variant="ghost" size="sm" className="relative hover:bg-gray-100">
-                <Bell className="h-5 w-5 text-black" />
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-black text-white">
+                <Bell className="h-5 w-5 text-gray-700" />
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-gray-900 text-white">
                   3
                 </Badge>
               </Button>
@@ -65,7 +65,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
                   <User className="h-5 w-5 text-gray-600" />
                 </div>
-                <span className="text-sm font-medium text-black">
+                <span className="text-sm font-medium text-gray-900">
                   {isAuthenticated ? adminUser?.name : 'Guest'}
                 </span>
               </div>
@@ -93,8 +93,8 @@ const DashboardContent = () => (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <Card className="border-gray-200">
         <CardHeader>
-          <CardTitle className="flex items-center text-black">
-            <span className="w-6 h-6 bg-black text-white rounded text-sm font-bold mr-3 flex items-center justify-center">!</span>
+          <CardTitle className="flex items-center text-gray-900">
+            <span className="w-6 h-6 bg-gray-900 text-white rounded text-sm font-bold mr-3 flex items-center justify-center">!</span>
             Highlighted Issues
           </CardTitle>
         </CardHeader>
@@ -102,24 +102,24 @@ const DashboardContent = () => (
           <div className="space-y-3">
             <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg border border-gray-200">
               <div className="flex items-center space-x-3">
-                <span className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center font-bold">3</span>
-                <span className="text-sm text-black">Critical security incidents</span>
+                <span className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold">3</span>
+                <span className="text-sm text-gray-900">Critical security incidents</span>
               </div>
               <Badge variant="destructive">Critical</Badge>
             </div>
             <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg border border-gray-200">
               <div className="flex items-center space-x-3">
-                <span className="w-8 h-8 bg-gray-600 text-white rounded-full flex items-center justify-center font-bold">9</span>
-                <span className="text-sm text-black">Harassment reports pending</span>
+                <span className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold">9</span>
+                <span className="text-sm text-gray-900">Harassment reports pending</span>
               </div>
-              <Badge className="bg-gray-600 text-white">High</Badge>
+              <Badge className="bg-orange-500 text-white">High</Badge>
             </div>
             <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg border border-gray-200">
               <div className="flex items-center space-x-3">
-                <span className="w-8 h-8 bg-gray-400 text-white rounded-full flex items-center justify-center font-bold">1</span>
-                <span className="text-sm text-black">Financial misconduct alert</span>
+                <span className="w-8 h-8 bg-yellow-500 text-white rounded-full flex items-center justify-center font-bold">1</span>
+                <span className="text-sm text-gray-900">Financial misconduct alert</span>
               </div>
-              <Badge className="bg-gray-400 text-white">Medium</Badge>
+              <Badge className="bg-yellow-500 text-white">Medium</Badge>
             </div>
           </div>
         </CardContent>
@@ -127,7 +127,7 @@ const DashboardContent = () => (
 
       <Card className="border-gray-200">
         <CardHeader>
-          <CardTitle className="flex items-center text-black">
+          <CardTitle className="flex items-center text-gray-900">
             <User className="h-5 w-5 mr-2" />
             Assigned to me
           </CardTitle>
@@ -136,29 +136,29 @@ const DashboardContent = () => (
           <div className="space-y-3">
             <div className="flex justify-between items-center p-3 border border-gray-200 rounded-lg">
               <div>
-                <p className="font-medium text-sm text-black">Review safety protocols</p>
+                <p className="font-medium text-sm text-gray-900">Review safety protocols</p>
                 <p className="text-xs text-gray-500">Investigation ongoing</p>
               </div>
               <div className="text-right">
-                <Badge variant="outline" className="border-black text-black">Due Mar 06</Badge>
+                <Badge variant="outline" className="border-gray-900 text-gray-900">Due Mar 06</Badge>
               </div>
             </div>
             <div className="flex justify-between items-center p-3 border border-gray-200 rounded-lg">
               <div>
-                <p className="font-medium text-sm text-black">Missing company equipment</p>
+                <p className="font-medium text-sm text-gray-900">Missing company equipment</p>
                 <p className="text-xs text-gray-500">Collecting evidence</p>
               </div>
               <div className="text-right">
-                <Badge variant="outline" className="border-black text-black">Due Apr 03</Badge>
+                <Badge variant="outline" className="border-gray-900 text-gray-900">Due Apr 03</Badge>
               </div>
             </div>
             <div className="flex justify-between items-center p-3 border border-gray-200 rounded-lg">
               <div>
-                <p className="font-medium text-sm text-black">Misuse of company property</p>
+                <p className="font-medium text-sm text-gray-900">Misuse of company property</p>
                 <p className="text-xs text-gray-500">Pending review</p>
               </div>
               <div className="text-right">
-                <Badge variant="outline" className="border-black text-black">Due Mar 20</Badge>
+                <Badge variant="outline" className="border-gray-900 text-gray-900">Due Mar 20</Badge>
               </div>
             </div>
           </div>
@@ -172,7 +172,7 @@ const ReportsContent = () => (
   <div>
     <Card className="border-gray-200">
       <CardHeader>
-        <CardTitle className="text-black">Recent Reports</CardTitle>
+        <CardTitle className="text-gray-900">Recent Reports</CardTitle>
         <CardDescription>All encrypted reports are displayed here</CardDescription>
       </CardHeader>
       <CardContent>
@@ -186,7 +186,7 @@ const AnalyticsContent = () => (
   <div>
     <Card className="border-gray-200">
       <CardHeader>
-        <CardTitle className="text-black">Analytics Dashboard</CardTitle>
+        <CardTitle className="text-gray-900">Analytics Dashboard</CardTitle>
         <CardDescription>Comprehensive analytics and insights</CardDescription>
       </CardHeader>
       <CardContent>
@@ -200,7 +200,7 @@ const AIInsightsContent = () => (
   <div>
     <Card className="border-gray-200">
       <CardHeader>
-        <CardTitle className="text-black">AI Insights</CardTitle>
+        <CardTitle className="text-gray-900">AI Insights</CardTitle>
         <CardDescription>AI-powered analysis and recommendations</CardDescription>
       </CardHeader>
       <CardContent>
