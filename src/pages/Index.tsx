@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { Shield, Lock, Globe, BarChart3, FileText, Brain, AlertTriangle } from 'lucide-react';
+import { Shield, Lock, Globe, BarChart3, FileText, Brain, AlertTriangle, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import ReportSubmissionModal from '@/components/ReportSubmissionModal';
@@ -84,60 +85,82 @@ const Index = () => {
     {
       icon: <Lock className="h-8 w-8 text-blue-600" />,
       title: t.features.encryption,
-      description: t.features.encryptionDesc
+      description: t.features.encryptionDesc,
+      gradient: "from-blue-400 to-blue-600"
     },
     {
-      icon: <Brain className="h-8 w-8 text-blue-600" />,
+      icon: <Brain className="h-8 w-8 text-purple-600" />,
       title: t.features.ai,
-      description: t.features.aiDesc
+      description: t.features.aiDesc,
+      gradient: "from-purple-400 to-purple-600"
     },
     {
-      icon: <BarChart3 className="h-8 w-8 text-blue-600" />,
+      icon: <BarChart3 className="h-8 w-8 text-green-600" />,
       title: t.features.analytics,
-      description: t.features.analyticsDesc
+      description: t.features.analyticsDesc,
+      gradient: "from-green-400 to-green-600"
     },
     {
-      icon: <Shield className="h-8 w-8 text-blue-600" />,
+      icon: <Shield className="h-8 w-8 text-red-600" />,
       title: t.features.trust,
-      description: t.features.trustDesc
+      description: t.features.trustDesc,
+      gradient: "from-red-400 to-red-600"
     },
     {
-      icon: <Globe className="h-8 w-8 text-blue-600" />,
+      icon: <Globe className="h-8 w-8 text-indigo-600" />,
       title: t.features.multilingual,
-      description: t.features.multilingualDesc
+      description: t.features.multilingualDesc,
+      gradient: "from-indigo-400 to-indigo-600"
     },
     {
-      icon: <FileText className="h-8 w-8 text-blue-600" />,
+      icon: <FileText className="h-8 w-8 text-orange-600" />,
       title: t.features.pdf,
-      description: t.features.pdfDesc
+      description: t.features.pdfDesc,
+      gradient: "from-orange-400 to-orange-600"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      {/* Animated background elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-4 -right-4 w-72 h-72 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/3 -left-4 w-72 h-72 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-0 right-1/3 w-72 h-72 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
+      </div>
+
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b shadow-sm sticky top-0 z-40">
+      <header className="bg-white/90 backdrop-blur-md border-b shadow-lg sticky top-0 z-40 animate-in slide-in-from-top duration-1000">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-3">
-              <Shield className="h-8 w-8 text-blue-600" />
-              <h1 className="text-2xl font-bold text-gray-900">{t.title}</h1>
+            <div className="flex items-center space-x-3 group">
+              <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300">
+                <Shield className="h-8 w-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{t.title}</h1>
+                <div className="flex items-center space-x-1">
+                  <Sparkles className="h-3 w-3 text-yellow-500" />
+                  <span className="text-xs text-gray-500 font-medium">Secure & Anonymous</span>
+                </div>
+              </div>
             </div>
             <div className="flex items-center space-x-4">
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg transition-all"
               >
-                <option value="en">English</option>
-                <option value="es">Español</option>
-                <option value="fr">Français</option>
+                <option value="en">🇺🇸 English</option>
+                <option value="es">🇪🇸 Español</option>
+                <option value="fr">🇫🇷 Français</option>
               </select>
               <Button
                 onClick={() => setShowAdminDashboard(true)}
                 variant="outline"
-                className="hidden sm:inline-flex"
+                className="hidden sm:inline-flex bg-white/80 backdrop-blur-sm hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
               >
+                <BarChart3 className="h-4 w-4 mr-2" />
                 {t.adminAccess}
               </Button>
             </div>
@@ -146,32 +169,35 @@ const Index = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-4xl mx-auto text-center animate-in fade-in-0 slide-in-from-bottom-8 duration-1000">
           <div className="mb-8">
-            <div className="inline-flex items-center justify-center p-4 bg-blue-600/10 rounded-full mb-6">
-              <AlertTriangle className="h-12 w-12 text-blue-600" />
+            <div className="inline-flex items-center justify-center p-6 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full mb-8 backdrop-blur-sm border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-110">
+              <AlertTriangle className="h-16 w-16 text-blue-600" />
             </div>
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              {t.subtitle}
+            <h2 className="text-4xl sm:text-6xl font-bold mb-6 animate-in slide-in-from-bottom-4 duration-1000" style={{ animationDelay: '200ms' }}>
+              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                {t.subtitle}
+              </span>
             </h2>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed animate-in slide-in-from-bottom-4 duration-1000" style={{ animationDelay: '400ms' }}>
               {t.description}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in slide-in-from-bottom-4 duration-1000" style={{ animationDelay: '600ms' }}>
               <Button
                 onClick={() => setShowSubmissionModal(true)}
                 size="lg"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-medium shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 transform"
               >
                 <Lock className="h-5 w-5 mr-2" />
                 {t.submitReport}
+                <Sparkles className="h-4 w-4 ml-2" />
               </Button>
               <Button
                 onClick={() => setShowAdminDashboard(true)}
                 variant="outline"
                 size="lg"
-                className="px-8 py-3 text-lg font-medium border-2 hover:bg-gray-50"
+                className="px-8 py-4 text-lg font-medium border-2 bg-white/80 backdrop-blur-sm hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white hover:border-transparent transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform"
               >
                 <BarChart3 className="h-5 w-5 mr-2" />
                 {t.adminAccess}
@@ -182,21 +208,35 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white/50">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white/50 backdrop-blur-sm relative">
         <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12 animate-in fade-in-0 slide-in-from-bottom-4 duration-1000">
+            <h3 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-4">
+              ✨ Powerful Features
+            </h3>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Advanced security and AI-powered insights to ensure your reports are protected and processed intelligently
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="hover:shadow-lg transition-all duration-200 border-0 bg-white/80 backdrop-blur-sm">
+              <Card 
+                key={index} 
+                className="group hover:shadow-2xl transition-all duration-500 border-0 bg-white/80 backdrop-blur-sm shadow-lg hover:scale-105 transform animate-in fade-in-0 slide-in-from-bottom-4" 
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
                 <CardHeader className="text-center pb-4">
                   <div className="flex justify-center mb-4">
-                    {feature.icon}
+                    <div className={`p-4 bg-gradient-to-br ${feature.gradient} rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110`}>
+                      {React.cloneElement(feature.icon, { className: "h-8 w-8 text-white" })}
+                    </div>
                   </div>
-                  <CardTitle className="text-lg font-semibold text-gray-900">
+                  <CardTitle className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
                     {feature.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-center text-gray-600">
+                  <CardDescription className="text-center text-gray-600 leading-relaxed">
                     {feature.description}
                   </CardDescription>
                 </CardContent>
@@ -207,30 +247,32 @@ const Index = () => {
       </section>
 
       {/* Trust Indicators */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-4xl mx-auto text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8">Trusted & Secure</h3>
+          <h3 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-8 animate-in fade-in-0 slide-in-from-bottom-4 duration-1000">
+            🛡️ Trusted & Secure
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <Shield className="h-8 w-8 text-green-600" />
+            <div className="flex flex-col items-center group animate-in fade-in-0 slide-in-from-bottom-4 duration-1000" style={{ animationDelay: '200ms' }}>
+              <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mb-4 shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
+                <Shield className="h-10 w-10 text-white" />
               </div>
-              <h4 className="font-semibold text-gray-900 mb-2">256-bit Encryption</h4>
-              <p className="text-gray-600 text-sm">Military-grade security for all reports</p>
+              <h4 className="font-bold text-gray-900 mb-2 text-lg">🔒 256-bit Encryption</h4>
+              <p className="text-gray-600 text-sm leading-relaxed">Military-grade security for all reports</p>
             </div>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                <Brain className="h-8 w-8 text-blue-600" />
+            <div className="flex flex-col items-center group animate-in fade-in-0 slide-in-from-bottom-4 duration-1000" style={{ animationDelay: '400ms' }}>
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mb-4 shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
+                <Brain className="h-10 w-10 text-white" />
               </div>
-              <h4 className="font-semibold text-gray-900 mb-2">AI-Powered</h4>
-              <p className="text-gray-600 text-sm">Advanced algorithms for accuracy</p>
+              <h4 className="font-bold text-gray-900 mb-2 text-lg">🤖 AI-Powered</h4>
+              <p className="text-gray-600 text-sm leading-relaxed">Advanced algorithms for accuracy</p>
             </div>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4">
-                <Globe className="h-8 w-8 text-purple-600" />
+            <div className="flex flex-col items-center group animate-in fade-in-0 slide-in-from-bottom-4 duration-1000" style={{ animationDelay: '600ms' }}>
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center mb-4 shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
+                <Globe className="h-10 w-10 text-white" />
               </div>
-              <h4 className="font-semibold text-gray-900 mb-2">Global Compliance</h4>
-              <p className="text-gray-600 text-sm">Meets international standards</p>
+              <h4 className="font-bold text-gray-900 mb-2 text-lg">🌍 Global Compliance</h4>
+              <p className="text-gray-600 text-sm leading-relaxed">Meets international standards</p>
             </div>
           </div>
         </div>
@@ -252,3 +294,4 @@ const Index = () => {
 };
 
 export default Index;
+
