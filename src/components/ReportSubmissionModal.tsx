@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Shield, Send, AlertCircle, CheckCircle, Lock, Brain } from 'lucide-react';
+import { Shield, Send, AlertCircle, CheckCircle, Lock, Brain, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -34,6 +34,7 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
   const [submitted, setSubmitted] = useState(false);
   const [reportId, setReportId] = useState('');
   const [aiAnalysis, setAiAnalysis] = useState<any>(null);
+  const [isRephrasing, setIsRephrasing] = useState(false);
   const { toast } = useToast();
 
   const languages = {
@@ -142,6 +143,47 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
     };
   };
 
+  const rephraseText = async (text: string, field: string) => {
+    setIsRephrasing(true);
+    
+    // Simulate AI rephrasing delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // Simple rephrasing logic - in a real app, this would call an AI service
+    const rephrasedTexts = {
+      title: [
+        "Concern regarding workplace misconduct",
+        "Report of policy violation incident",
+        "Workplace safety and compliance issue",
+        "Organizational misconduct observation"
+      ],
+      description: [
+        `This report details a concerning incident that requires immediate attention. The situation involves ${text.toLowerCase()} and may impact workplace safety and compliance standards.`,
+        `I am reporting an incident of significant concern that occurred recently. The details are as follows: ${text.toLowerCase()}. This matter requires proper investigation and resolution.`,
+        `An important workplace issue has come to my attention that needs to be addressed. The incident involves ${text.toLowerCase()} and may have broader implications for our organization.`
+      ],
+      evidence: [
+        `Supporting documentation and evidence related to this incident include: ${text.toLowerCase()}. These materials substantiate the claims made in this report.`,
+        `The following evidence supports the reported incident: ${text.toLowerCase()}. Additional documentation may be available upon request.`
+      ]
+    };
+    
+    const options = rephrasedTexts[field as keyof typeof rephrasedTexts] || [text];
+    const rephrasedText = options[Math.floor(Math.random() * options.length)];
+    
+    setReport(prev => ({
+      ...prev,
+      [field]: rephrasedText
+    }));
+    
+    setIsRephrasing(false);
+    
+    toast({
+      title: "Text Rephrased",
+      description: "The text has been professionally rephrased.",
+    });
+  };
+
   const handleSubmit = async () => {
     if (!report.title || !report.description || !report.category) {
       toast({
@@ -190,20 +232,20 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
   if (submitted) {
     return (
       <Dialog open={isOpen} onOpenChange={reset}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl bg-white border-black">
           <DialogHeader>
-            <DialogTitle className="flex items-center text-green-600">
+            <DialogTitle className="flex items-center text-black">
               <CheckCircle className="h-6 w-6 mr-2" />
               {t.success}
             </DialogTitle>
           </DialogHeader>
           
           <div className="space-y-6">
-            <Card className="bg-green-50 border-green-200">
+            <Card className="bg-gray-50 border-gray-300">
               <CardContent className="pt-6">
                 <div className="text-center">
                   <div className="mb-4">
-                    <Badge variant="outline" className="text-lg px-4 py-2 bg-white">
+                    <Badge variant="outline" className="text-lg px-4 py-2 bg-white border-black text-black">
                       {t.trackingId}: {reportId}
                     </Badge>
                   </div>
@@ -215,42 +257,42 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
             </Card>
 
             {aiAnalysis && (
-              <Card>
+              <Card className="border-gray-300">
                 <CardContent className="pt-6">
                   <div className="flex items-center mb-4">
-                    <Brain className="h-5 w-5 text-blue-600 mr-2" />
-                    <h3 className="font-semibold">AI Analysis Results</h3>
+                    <Brain className="h-5 w-5 text-black mr-2" />
+                    <h3 className="font-semibold text-black">AI Analysis Results</h3>
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                      <span className="font-medium">Detected Category:</span>
+                      <span className="font-medium text-black">Detected Category:</span>
                       <div className="mt-1">
-                        <Badge variant="secondary">{aiAnalysis.detectedCategory}</Badge>
+                        <Badge variant="secondary" className="bg-gray-200 text-black">{aiAnalysis.detectedCategory}</Badge>
                       </div>
                     </div>
                     <div>
-                      <span className="font-medium">Trust Score:</span>
+                      <span className="font-medium text-black">Trust Score:</span>
                       <div className="mt-1">
                         <Badge 
                           variant={aiAnalysis.trustScore > 85 ? "default" : "secondary"}
-                          className={aiAnalysis.trustScore > 85 ? "bg-green-600" : ""}
+                          className={aiAnalysis.trustScore > 85 ? "bg-black text-white" : "bg-gray-200 text-black"}
                         >
                           {aiAnalysis.trustScore}%
                         </Badge>
                       </div>
                     </div>
                     <div>
-                      <span className="font-medium">Risk Level:</span>
+                      <span className="font-medium text-black">Risk Level:</span>
                       <div className="mt-1">
-                        <Badge variant={aiAnalysis.riskLevel === 'critical' ? "destructive" : "outline"}>
+                        <Badge variant={aiAnalysis.riskLevel === 'critical' ? "destructive" : "outline"} className="border-black">
                           {aiAnalysis.riskLevel}
                         </Badge>
                       </div>
                     </div>
                     <div>
-                      <span className="font-medium">Authenticity:</span>
+                      <span className="font-medium text-black">Authenticity:</span>
                       <div className="mt-1">
-                        <Badge variant={aiAnalysis.isFakeDetected ? "destructive" : "default"}>
+                        <Badge variant={aiAnalysis.isFakeDetected ? "destructive" : "default"} className={aiAnalysis.isFakeDetected ? "" : "bg-black text-white"}>
                           {aiAnalysis.isFakeDetected ? "Suspicious" : "Authentic"}
                         </Badge>
                       </div>
@@ -261,10 +303,10 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
             )}
 
             <div className="flex space-x-3">
-              <Button onClick={reset} className="flex-1">
+              <Button onClick={reset} className="flex-1 bg-black hover:bg-gray-800 text-white">
                 Submit Another Report
               </Button>
-              <Button onClick={reset} variant="outline" className="flex-1">
+              <Button onClick={reset} variant="outline" className="flex-1 border-black hover:bg-black hover:text-white">
                 Close
               </Button>
             </div>
@@ -276,23 +318,23 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white border-black">
         <DialogHeader>
-          <DialogTitle className="flex items-center">
-            <Shield className="h-6 w-6 mr-2 text-blue-600" />
+          <DialogTitle className="flex items-center text-black">
+            <Shield className="h-6 w-6 mr-2" />
             {t.title}
           </DialogTitle>
         </DialogHeader>
 
         <div className="space-y-6">
           {/* Security Notice */}
-          <Card className="bg-blue-50 border-blue-200">
+          <Card className="bg-gray-50 border-gray-300">
             <CardContent className="pt-4">
               <div className="flex items-start">
-                <Lock className="h-5 w-5 text-blue-600 mr-2 mt-0.5" />
+                <Lock className="h-5 w-5 text-black mr-2 mt-0.5" />
                 <div className="text-sm">
-                  <p className="font-medium text-blue-900 mb-1">Your privacy is protected</p>
-                  <p className="text-blue-700">All reports are encrypted and submitted anonymously. No personal information is collected.</p>
+                  <p className="font-medium text-black mb-1">Your privacy is protected</p>
+                  <p className="text-gray-700">All reports are encrypted and submitted anonymously. No personal information is collected.</p>
                 </div>
               </div>
             </CardContent>
@@ -300,24 +342,37 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
 
           <div className="space-y-4">
             <div>
-              <Label htmlFor="title">{t.reportTitle} *</Label>
+              <div className="flex justify-between items-center mb-1">
+                <Label htmlFor="title" className="text-black">{t.reportTitle} *</Label>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => rephraseText(report.title, 'title')}
+                  disabled={!report.title || isRephrasing}
+                  className="text-black hover:bg-gray-100"
+                >
+                  <RefreshCw className={`h-4 w-4 mr-1 ${isRephrasing ? 'animate-spin' : ''}`} />
+                  Rephrase
+                </Button>
+              </div>
               <Input
                 id="title"
                 value={report.title}
                 onChange={(e) => setReport({ ...report, title: e.target.value })}
                 placeholder="Brief summary of the concern"
-                className="mt-1"
+                className="border-gray-300 focus:ring-black focus:border-black"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="category">{t.category} *</Label>
+                <Label htmlFor="category" className="text-black">{t.category} *</Label>
                 <Select value={report.category} onValueChange={(value) => setReport({ ...report, category: value })}>
-                  <SelectTrigger className="mt-1">
+                  <SelectTrigger className="mt-1 border-gray-300 focus:ring-black focus:border-black">
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white border-gray-300">
                     <SelectItem value="harassment">{t.categories.harassment}</SelectItem>
                     <SelectItem value="discrimination">{t.categories.discrimination}</SelectItem>
                     <SelectItem value="financial">{t.categories.financial}</SelectItem>
@@ -329,12 +384,12 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
               </div>
 
               <div>
-                <Label htmlFor="urgency">{t.urgency}</Label>
+                <Label htmlFor="urgency" className="text-black">{t.urgency}</Label>
                 <Select value={report.urgency} onValueChange={(value) => setReport({ ...report, urgency: value })}>
-                  <SelectTrigger className="mt-1">
+                  <SelectTrigger className="mt-1 border-gray-300 focus:ring-black focus:border-black">
                     <SelectValue placeholder="Select urgency" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white border-gray-300">
                     <SelectItem value="low">{t.urgencyLevels.low}</SelectItem>
                     <SelectItem value="medium">{t.urgencyLevels.medium}</SelectItem>
                     <SelectItem value="high">{t.urgencyLevels.high}</SelectItem>
@@ -345,47 +400,73 @@ const ReportSubmissionModal: React.FC<ReportSubmissionModalProps> = ({
             </div>
 
             <div>
-              <Label htmlFor="description">{t.description} *</Label>
+              <div className="flex justify-between items-center mb-1">
+                <Label htmlFor="description" className="text-black">{t.description} *</Label>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => rephraseText(report.description, 'description')}
+                  disabled={!report.description || isRephrasing}
+                  className="text-black hover:bg-gray-100"
+                >
+                  <RefreshCw className={`h-4 w-4 mr-1 ${isRephrasing ? 'animate-spin' : ''}`} />
+                  Rephrase
+                </Button>
+              </div>
               <Textarea
                 id="description"
                 value={report.description}
                 onChange={(e) => setReport({ ...report, description: e.target.value })}
                 placeholder="Provide detailed information about the concern..."
-                className="mt-1 min-h-[120px]"
+                className="min-h-[120px] border-gray-300 focus:ring-black focus:border-black"
               />
             </div>
 
             <div>
-              <Label htmlFor="evidence">{t.evidence}</Label>
+              <div className="flex justify-between items-center mb-1">
+                <Label htmlFor="evidence" className="text-black">{t.evidence}</Label>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => rephraseText(report.evidence, 'evidence')}
+                  disabled={!report.evidence || isRephrasing}
+                  className="text-black hover:bg-gray-100"
+                >
+                  <RefreshCw className={`h-4 w-4 mr-1 ${isRephrasing ? 'animate-spin' : ''}`} />
+                  Rephrase
+                </Button>
+              </div>
               <Textarea
                 id="evidence"
                 value={report.evidence}
                 onChange={(e) => setReport({ ...report, evidence: e.target.value })}
                 placeholder="Any supporting information, documents, or evidence..."
-                className="mt-1"
+                className="border-gray-300 focus:ring-black focus:border-black"
               />
             </div>
 
             <div>
-              <Label htmlFor="location">{t.location}</Label>
+              <Label htmlFor="location" className="text-black">{t.location}</Label>
               <Input
                 id="location"
                 value={report.location}
                 onChange={(e) => setReport({ ...report, location: e.target.value })}
                 placeholder="Department, building, or general location"
-                className="mt-1"
+                className="mt-1 border-gray-300 focus:ring-black focus:border-black"
               />
             </div>
           </div>
 
-          <div className="flex justify-end space-x-3 pt-4 border-t">
-            <Button onClick={onClose} variant="outline">
+          <div className="flex justify-end space-x-3 pt-4 border-t border-gray-300">
+            <Button onClick={onClose} variant="outline" className="border-black hover:bg-black hover:text-white">
               Cancel
             </Button>
             <Button 
               onClick={handleSubmit} 
               disabled={isSubmitting}
-              className="bg-blue-600 hover:bg-blue-700"
+              className="bg-black hover:bg-gray-800 text-white"
             >
               {isSubmitting ? (
                 <>
