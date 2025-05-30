@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Shield, Send, Eye, Lock, Brain, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -10,6 +9,7 @@ import DashboardLayout from '@/components/DashboardLayout';
 const Index = () => {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState(false);
+  const [language, setLanguage] = useState('en');
 
   const features = [
     {
@@ -155,6 +155,7 @@ const Index = () => {
       <ReportSubmissionModal 
         isOpen={isReportModalOpen} 
         onClose={() => setIsReportModalOpen(false)} 
+        language={language}
       />
       
       <AdminDashboard 
